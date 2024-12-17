@@ -164,7 +164,10 @@
 
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
-            <button type="button" onclick="shareLink()">Share Quiz</button>
+            <!-- Update button to redirect to the group link -->
+            <a href="https://chat.whatsapp.com/DwMNDXEdwsGBa6QIkXYXg9" target="_blank">
+                <button type="button">Join and Share Quiz</button>
+            </a>
             <p id="shareCount">Shared: 0/10</p>
         </div>
 
@@ -177,60 +180,46 @@
     </div>
 
     <script>
- let shareCount = 0;
+  let shareCount = 0;
 
- function shareLink() {
-    const shareMessage = encodeURIComponent("Test your Knowledge with this English Quiz: https://cbtlesson.vercel.app/");
-    const whatsappShareLink = `https://wa.me/?text=${shareMessage}`;
+        function shareLink() {
+            // No need to create a WhatsApp link here, it's now handled by the group link
+            // We assume the user will share it within the group
+            shareCount++;
+            console.log(`Share Count: ${shareCount}`); // Check share count in console
+            document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
 
-    // Inform the user to open WhatsApp and manually select contacts
-    alert('Please select a contact to share the quiz with manually.');
+            // Enable submit button when 10 shares are reached
+            if (shareCount >= 10) {
+                document.getElementById('submitButton').disabled = false; // Enable submit button
+                console.log('Submit button enabled'); // Confirm button is enabled
+            }
+        }
 
-    // Open WhatsApp share dialog (mobile users will need to select a contact manually)
-    if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
-        window.location.href = whatsappShareLink; // Opens WhatsApp on mobile
-    } else {
-        window.open(whatsappShareLink, '_blank'); // Opens WhatsApp on desktop
-    }
+        function submitQuiz() {
+            console.log("Submit button clicked");
 
-    // Increment share count and update UI
-    shareCount++;
-    console.log(`Share Count: ${shareCount}`);
-    document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
+            if (shareCount < 10) {
+                alert('You need to share this quiz with at least 10 people before you can submit!');
+                return; // Stop the function here
+            }
 
-    // Enable submit button when 10 shares are reached
-    if (shareCount >= 10) {
-        document.getElementById('submitButton').disabled = false;
-        console.log('Submit button enabled');
-    }
-}
+            alert('You can submit the quiz now!');
 
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            const answers = [];
 
+            formData.forEach((value, key) => {
+                answers.push(`${key}: ${value}`);
+            });
 
-function submitQuiz() {
-    console.log("Submit button clicked"); // Check if this log appears in the console
+            const message = encodeURIComponent(answers.join('\n'));
+            const whatsappLink = `https://wa.me/2349027420688?text=${message}`;
 
-    if (shareCount < 10) {
-        alert('You need to share this quiz with at least 10 people before you can submit!');
-        return; // Stop the function here
-    }
-
-    alert('You can submit the quiz now!');
-
-    const form = document.getElementById('quizForm');
-    const formData = new FormData(form);
-    const answers = [];
-
-    formData.forEach((value, key) => {
-        answers.push(`${key}: ${value}`);
-    });
-
-    const message = encodeURIComponent(answers.join('\n'));
-    const whatsappLink = `https://wa.me/2349027420688?text=${message}`;
-
-    // Redirect to WhatsApp with quiz answers
-    window.location.href = whatsappLink;
-}
+            // Redirect to WhatsApp with quiz answers
+            window.location.href = whatsappLink;
+        }
 
     </script>
     
