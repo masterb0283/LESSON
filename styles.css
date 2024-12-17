@@ -212,3 +212,23 @@ button:hover {
         padding: 6px 4px;
     }
 }
+#shareSection button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    background-color: #25D366; /* WhatsApp green */
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#shareSection button:hover {
+    background-color: #128C7E;
+}
+#shareSection {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+}

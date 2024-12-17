@@ -183,8 +183,12 @@ function shareLink() {
     const shareMessage = encodeURIComponent("Test your Knowledge with this English Quiz: https://cbtlesson.vercel.app/");
     const whatsappShareLink = `https://wa.me/?text=${shareMessage}`;
 
-    // Open WhatsApp share link
-    window.open(whatsappShareLink, '_blank');
+    // Check if the user is on a mobile device and open WhatsApp
+    if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
+        window.location.href = whatsappShareLink; // Direct mobile redirection
+    } else {
+        window.open(whatsappShareLink, '_blank'); // Use window.open for desktop
+    }
 
     // Increment share count and update UI
     shareCount++;
@@ -197,6 +201,7 @@ function shareLink() {
         console.log('Submit button enabled'); // Confirm button is enabled
     }
 }
+
 
 function submitQuiz() {
     console.log("Submit button clicked"); // Check if this log appears in the console
