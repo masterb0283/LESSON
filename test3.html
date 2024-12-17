@@ -179,15 +179,15 @@
     <script>
  let shareCount = 0;
 
-function shareLink() {
+ function shareLink() {
     const shareMessage = encodeURIComponent("Test your Knowledge with this English Quiz: https://cbtlesson.vercel.app/");
     const whatsappShareLink = `https://wa.me/?text=${shareMessage}`;
 
-    // Open WhatsApp share dialog
+    // Open WhatsApp share dialog, but do not specify a number
     if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
-        window.location.href = whatsappShareLink; // Opens WhatsApp share dialog on mobile
+        window.location.href = whatsappShareLink; // Opens WhatsApp share dialog on mobile, where the user can select a contact
     } else {
-        window.open(whatsappShareLink, '_blank'); // Opens WhatsApp share dialog on desktop
+        window.open(whatsappShareLink, '_blank'); // Opens WhatsApp share dialog on desktop, where user can select a contact
     }
 
     // Increment share count and update UI
@@ -201,6 +201,7 @@ function shareLink() {
         console.log('Submit button enabled'); // Confirm button is enabled
     }
 }
+
 
 function submitQuiz() {
     console.log("Submit button clicked"); // Check if this log appears in the console
