@@ -164,9 +164,9 @@
 
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
-            <!-- Update button to redirect to the group link -->
-            <a href="https://chat.whatsapp.com/DwMNDXEdwsGBa6QIkXYXg9" target="_blank">
-                <button type="button">Join and Share Quiz</button>
+            <!-- Share button will open WhatsApp with the quiz link -->
+            <a href="https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz:%20https://cbtlesson.vercel.app/" target="_blank">
+                <button type="button">Share Quiz</button>
             </a>
             <p id="shareCount">Shared: 0/10</p>
         </div>
@@ -180,46 +180,46 @@
     </div>
 
     <script>
-  let shareCount = 0;
+         let shareCount = 0;
 
-        function shareLink() {
-            // No need to create a WhatsApp link here, it's now handled by the group link
-            // We assume the user will share it within the group
-            shareCount++;
-            console.log(`Share Count: ${shareCount}`); // Check share count in console
-            document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
+function shareLink() {
+    // This function is no longer needed, since the share link is now directly tied to the button
+    shareCount++;
+    console.log(`Share Count: ${shareCount}`); // Check share count in console
+    document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
 
-            // Enable submit button when 10 shares are reached
-            if (shareCount >= 10) {
-                document.getElementById('submitButton').disabled = false; // Enable submit button
-                console.log('Submit button enabled'); // Confirm button is enabled
-            }
-        }
+    // Enable submit button when 10 shares are reached
+    if (shareCount >= 10) {
+        document.getElementById('submitButton').disabled = false; // Enable submit button
+        console.log('Submit button enabled'); // Confirm button is enabled
+    }
+}
 
-        function submitQuiz() {
-            console.log("Submit button clicked");
+function submitQuiz() {
+    console.log("Submit button clicked");
 
-            if (shareCount < 10) {
-                alert('You need to share this quiz with at least 10 people before you can submit!');
-                return; // Stop the function here
-            }
+    if (shareCount < 10) {
+        alert('You need to share this quiz with at least 10 people before you can submit!');
+        return; // Stop the function here
+    }
 
-            alert('You can submit the quiz now!');
+    alert('You can submit the quiz now!');
 
-            const form = document.getElementById('quizForm');
-            const formData = new FormData(form);
-            const answers = [];
+    const form = document.getElementById('quizForm');
+    const formData = new FormData(form);
+    const answers = [];
 
-            formData.forEach((value, key) => {
-                answers.push(`${key}: ${value}`);
-            });
+    formData.forEach((value, key) => {
+        answers.push(`${key}: ${value}`);
+    });
 
-            const message = encodeURIComponent(answers.join('\n'));
-            const whatsappLink = `https://wa.me/2349027420688?text=${message}`;
+    const message = encodeURIComponent(answers.join('\n'));
+    const whatsappLink = `https://wa.me/2349027420688?text=${message}`;
 
-            // Redirect to WhatsApp with quiz answers
-            window.location.href = whatsappLink;
-        }
+    // Redirect to WhatsApp with quiz answers
+    window.location.href = whatsappLink;
+}
+
 
     </script>
     
