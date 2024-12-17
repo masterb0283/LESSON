@@ -183,24 +183,28 @@
     const shareMessage = encodeURIComponent("Test your Knowledge with this English Quiz: https://cbtlesson.vercel.app/");
     const whatsappShareLink = `https://wa.me/?text=${shareMessage}`;
 
-    // Open WhatsApp share dialog, but do not specify a number
+    // Inform the user to open WhatsApp and manually select contacts
+    alert('Please select a contact to share the quiz with manually.');
+
+    // Open WhatsApp share dialog (mobile users will need to select a contact manually)
     if (navigator.userAgent.match(/Android|iPhone|iPad|iPod/i)) {
-        window.location.href = whatsappShareLink; // Opens WhatsApp share dialog on mobile, where the user can select a contact
+        window.location.href = whatsappShareLink; // Opens WhatsApp on mobile
     } else {
-        window.open(whatsappShareLink, '_blank'); // Opens WhatsApp share dialog on desktop, where user can select a contact
+        window.open(whatsappShareLink, '_blank'); // Opens WhatsApp on desktop
     }
 
     // Increment share count and update UI
     shareCount++;
-    console.log(`Share Count: ${shareCount}`); // Check share count in console
+    console.log(`Share Count: ${shareCount}`);
     document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
 
     // Enable submit button when 10 shares are reached
     if (shareCount >= 10) {
-        document.getElementById('submitButton').disabled = false; // Enable submit button
-        console.log('Submit button enabled'); // Confirm button is enabled
+        document.getElementById('submitButton').disabled = false;
+        console.log('Submit button enabled');
     }
 }
+
 
 
 function submitQuiz() {
