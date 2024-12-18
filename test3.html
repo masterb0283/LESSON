@@ -165,10 +165,9 @@
 
         
         <div id="shareSection">
-            <button onclick="window.location.href='https://wa.me/?text=I%27ve%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F';">
-                Share on WhatsApp
-            </button>
-            
+            <button onclick="copyLinkToClipboard()">Click here to copy link to share on WhatsApp</button>
+
+
             <p id="shareCount">Shared: 0/10</p>
         </div>
 
@@ -189,6 +188,19 @@ const submitButton = document.getElementById('submitButton');
 const shareButton = document.getElementById('share-btn');
 const shareCountText = document.getElementById('shareCount');
 const quizForm = document.getElementById('quizForm');
+
+
+function copyLinkToClipboard() {
+    const message = 'Please click on the link to test your knowledge in English: https://cbtlesson.vercel.app/';
+    
+    navigator.clipboard.writeText(message).then(function() {
+        // Redirect to WhatsApp after copying the link
+        window.location.href = 'https://wa.me/?text=' + encodeURIComponent(message);
+    }).catch(function(error) {
+        alert("Failed to copy the link: " + error);
+    });
+}
+
 
 // Check if all questions are answered
 function checkAllAnswered() {
