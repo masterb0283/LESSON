@@ -186,59 +186,76 @@
     </div>
 
     <script>
- let shareCount = 0;
-
-// Track share button clicks
-function trackShare() {
-    shareCount++;
-    document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
-
-    // Enable submit button when 10 shares are reached
-    if (shareCount >= 10) {
-        const submitButton = document.getElementById('submitButton');
-        submitButton.disabled = false;
-        submitButton.style.backgroundColor = "green";
-    }
-}
-
-// Collect and submit the quiz
-function submitQuiz() {
-    // Collect quiz answers
-    const form = document.getElementById('quizForm');
-    const formData = new FormData(form);
-    let answers = '';
-
-    formData.forEach((value, key) => {
-        answers += `${key}: ${value}\n`;
-    });
-
-    // Check if answers are correctly collected
-    console.log("Collected Answers: ", answers);
-
-    // Format the message for WhatsApp
-    const message = `Here are my quiz answers:\n${answers}`;
-    console.log("Message: ", message); // Debugging log
-
-    const encodedMessage = encodeURIComponent(message); // Properly encode the message
-    console.log("Encoded Message: ", encodedMessage); // Debugging log
-
-    // Create WhatsApp link with the encoded message
-    const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
-    console.log("WhatsApp Link: ", whatsappLink); // Debugging log
-
-    // Redirect to WhatsApp
-    window.location.href = whatsappLink;
-}
-
-// Attach the submitQuiz function to the submit button
-document.getElementById('submitButton').addEventListener('click', function () {
-    submitQuiz();
-});
-
-
-
-
-    </script>
+        let shareCount = 0;
+        
+        // Track share button clicks
+        function trackShare() {
+            shareCount++;
+            document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
+        
+            // Enable submit button when 10 shares are reached
+            if (shareCount >= 10) {
+                const submitButton = document.getElementById('submitButton');
+                submitButton.disabled = false;
+                submitButton.style.backgroundColor = "green";
+            }
+        }
+        
+        // Collect and submit the quiz
+        function submitQuiz() {
+            // Collect quiz answers
+            const form = document.getElementById('quizForm');
+            const formData = new FormData(form);
+            let answers = '';
+        
+            formData.forEach((value, key) => {
+                answers += `${key}: ${value}\n`;
+            });
+        
+            // Check if answers are correctly collected
+            console.log("Collected Answers: ", answers);
+        
+            // Format the message for WhatsApp
+            const message = `Here are my quiz answers:\n${answers}`;
+            console.log("Message: ", message); // Debugging log
+        
+            const encodedMessage = encodeURIComponent(message); // Properly encode the message
+            console.log("Encoded Message: ", encodedMessage); // Debugging log
+        
+            // Create WhatsApp link with the encoded message
+            const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
+            console.log("WhatsApp Link: ", whatsappLink); // Debugging log
+        
+            // Redirect to WhatsApp
+            window.location.href = whatsappLink;
+        }
+        
+        // Attach the submitQuiz function to the submit button
+        document.getElementById('submitButton').addEventListener('click', function () {
+            submitQuiz();
+        });
+        
+        // Share button logic
+        document.querySelector('a[onclick="trackShare()"]').addEventListener('click', function (event) {
+            // Prevent default action and trigger share tracking
+            event.preventDefault();
+            trackShare();
+        
+            if (shareCount <= 10) {
+                const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+                window.open(whatsappLink, '_blank');
+            }
+        
+            // Redirect when 10 shares are reached
+            if (shareCount === 10) {
+                document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
+                setTimeout(() => {
+                    window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update with your page link
+                }, 2000);
+            }
+        });
+        </script>
+        
     
     
 </body>
