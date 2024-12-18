@@ -166,9 +166,10 @@
         
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
-            <button type="button" id="share-btn">
+            <button type="button" id="share-btn" disabled>
                 Share Quiz on WhatsApp
             </button>
+            
             <p id="shareCount">Shared: 0/10</p>
         </div>
 
@@ -225,16 +226,19 @@
             toggleSubmitButton(); // Check if submit button can be enabled
         }
     
+        // Update the share button link with WhatsApp URL
+        function updateShareLink() {
+            const whatsappLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+    
+            // Update the button to a link after sharing threshold is reached
+            shareButton.disabled = false;
+            shareButton.setAttribute('href', whatsappLink);
+        }
+    
         // Share button functionality
         shareButton.onclick = function() {
             if (shareCount < 10) {
                 shareCount++;
-                const whatsappLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-    
-                // Update the share link directly
-                shareButton.setAttribute("href", whatsappLink);
-                window.location.href = whatsappLink;
-    
                 updateProgress();
             }
     
@@ -255,6 +259,7 @@
         toggleSubmitButton();
     </script>
     
+
     
         
     
