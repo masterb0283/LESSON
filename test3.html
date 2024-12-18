@@ -166,17 +166,11 @@
         
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
-            <button type="button" id="share-btn">Share Quiz on WhatsApp</button>
+            <button type="button" id="share-btn">
+                Share Quiz on WhatsApp
+            </button>
             <p id="shareCount">Shared: 0/10</p>
-        
-            <!-- Section to show after 10 shares -->
-            <div id="afterShareSection" style="display: none;">
-                <p>You've shared enough! Click the link below to forward the quiz:</p>
-                <p><a id="whatsappLink" href="" target="_blank">Click here to share the quiz on WhatsApp</a></p>
-                <button id="forwardButton">Forward to Contact</button>
-            </div>
         </div>
-        
 
         <div class="join">
             <a href="https://wa.me/2349027420688?text=Hello%20Admin%2C%20I%20have%20a%20question%20about%20the%20quiz.%20" target="_blank">
@@ -190,38 +184,78 @@
     </div>
 
     <script>
-         let shareCount = 0;
-const shareButton = document.getElementById('share-btn');
-const afterShareSection = document.getElementById('afterShareSection');
-const whatsappLink = document.getElementById('whatsappLink');
-const forwardButton = document.getElementById('forwardButton');
-
-shareButton.onclick = function () {
-    if (shareCount < 10) {
-        shareCount++;
-        const quizUrl = encodeURIComponent("Test your Knowledge with this English Quiz: https://cbtlesson.vercel.app/");
-        const whatsappUrl = `https://wa.me/?text=${quizUrl}`;
-        window.open(whatsappUrl, '_blank');
-
-        // Update share count
-        document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
-    }
-
-    if (shareCount === 10) {
-        // Display the section after 10 shares
-        afterShareSection.style.display = 'block';
-
-        // Update the link to the quiz
-        whatsappLink.href = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz:%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-
-        // Handle the forward button logic
-        forwardButton.onclick = function () {
-            window.open(whatsappLink.href, '_blank');
+        let shareCount = 0;
+        const submitButton = document.getElementById('submitButton');
+        const shareButton = document.getElementById('share-btn');
+        const shareCountText = document.getElementById('shareCount');
+        const quizForm = document.getElementById('quizForm');
+        
+        // Check if all questions are answered
+        function checkAllAnswered() {
+            const questions = quizForm.querySelectorAll('.question');
+            let allAnswered = true;
+    
+            questions.forEach(question => {
+                const inputs = question.querySelectorAll('input[type="radio"]');
+                const answered = Array.from(inputs).some(input => input.checked);
+                if (!answered) {
+                    allAnswered = false;
+                }
+            });
+    
+            return allAnswered;
+        }
+    
+        // Function to enable or disable the submit button
+        function toggleSubmitButton() {
+            if (shareCount >= 10 && checkAllAnswered()) {
+                submitButton.disabled = false;
+                submitButton.style.backgroundColor = 'green'; // Enable and style the button
+                submitButton.innerHTML = 'Submit Quiz'; // Change text to 'Submit Quiz'
+            } else {
+                submitButton.disabled = true;
+                submitButton.style.backgroundColor = 'red'; // Keep it disabled and styled as red
+                submitButton.innerHTML = 'Submit (Share with 10 people first)'; // Change text to indicate sharing required
+            }
+        }
+    
+        // Update the share progress
+        function updateProgress() {
+            shareCountText.innerHTML = `Shared: ${shareCount}/10`;
+            toggleSubmitButton(); // Check if submit button can be enabled
+        }
+    
+        // Share button functionality
+        shareButton.onclick = function() {
+            if (shareCount < 10) {
+                shareCount++;
+                const whatsappLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+    
+                // Update the share link directly
+                shareButton.setAttribute("href", whatsappLink);
+                window.location.href = whatsappLink;
+    
+                updateProgress();
+            }
+    
+            if (shareCount === 10) {
+                shareCountText.innerHTML = "You've shared enough! Redirecting...";
+                setTimeout(() => {
+                    window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update to your general page link
+                }, 2000);
+            }
         };
-    }
-};
-
-        </script>
+    
+        // Listen for any change in the form to check if all questions are answered
+        quizForm.addEventListener('change', () => {
+            toggleSubmitButton();
+        });
+    
+        // Initial check for the submit button status
+        toggleSubmitButton();
+    </script>
+    
+    
         
     
     
