@@ -165,10 +165,11 @@
 
         
         <div id="shareSection">
+            <p>You need to copy and share the quiz link to 10 people before you can submit</p>
             <button onclick="copyLinkToClipboard()">Click here to copy link to share on WhatsApp</button>
 
 
-            <p id="shareCount">Shared: 0/10</p>
+            <p id="shareCount">Copy and Shared: 0/10</p>
         </div>
 
         <div class="join">
@@ -185,22 +186,31 @@
     <script>
 let shareCount = 0;
 const submitButton = document.getElementById('submitButton');
-const shareButton = document.getElementById('share-btn');
 const shareCountText = document.getElementById('shareCount');
 const quizForm = document.getElementById('quizForm');
-
 
 function copyLinkToClipboard() {
     const message = 'Please click on the link to test your knowledge in English: https://cbtlesson.vercel.app/';
     
     navigator.clipboard.writeText(message).then(function() {
-        // Redirect to WhatsApp after copying the link
-        window.location.href = 'https://wa.me/?text=' + encodeURIComponent(message);
+        // Show an alert after copying the link
+        alert("You have copied the Link! You should share it with friends and groups on WhatsApp.");
+        
+        // Increment share count after copying the link
+        shareCount++;
+        updateProgress(); // Update the progress display
+
+        // Check if the share count is sufficient to enable submission
+        toggleSubmitButton();
+
+        // Redirect to WhatsApp after a short delay (2 seconds)
+        setTimeout(function() {
+            window.location.href = 'https://wa.me/?text=' + encodeURIComponent(message);
+        }, 2000);  // 2 seconds delay
     }).catch(function(error) {
         alert("Failed to copy the link: " + error);
     });
 }
-
 
 // Check if all questions are answered
 function checkAllAnswered() {
@@ -237,39 +247,26 @@ function updateProgress() {
     toggleSubmitButton(); // Check if submit button can be enabled
 }
 
-// Update the share button link with WhatsApp URL
-function updateShareLink() {
-    const whatsappLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-
-    // Enable the share button after sharing threshold is reached
-    shareButton.disabled = false;
-    shareButton.setAttribute('href', whatsappLink);
-}
-
-// Share button functionality
-shareButton.onclick = function() {
-    if (shareCount < 10) {
-        shareCount++;
-        updateProgress();
-    }
-
-    // When share count reaches 10, disable further clicking and redirect
-    if (shareCount === 10) {
-        shareCountText.innerHTML = "You've shared enough! Redirecting...";
-        shareButton.disabled = true; // Disable the button after 10 shares
-        setTimeout(() => {
-            window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Redirect after the threshold is reached
-        }, 2000);
-    }
-};
-
 // Listen for any change in the form to check if all questions are answered
 quizForm.addEventListener('change', () => {
     toggleSubmitButton();
 });
 
+// Submit function with alert for share condition
+submitButton.addEventListener('click', function(event) {
+    if (shareCount < 10) {
+        // Prevent form submission if less than 10 shares
+        event.preventDefault(); // This stops the form submission
+        alert("You need to share the quiz with at least 10 people before submitting.");
+    } else {
+        // Continue with form submission
+        alert("Quiz submitted successfully!");
+    }
+});
+
 // Initial check for the submit button status
 toggleSubmitButton();
+
 
     </script>
     
