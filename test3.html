@@ -257,21 +257,23 @@
         // });
 
         shareButton.onclick = function() {
-            if (shareCount < 10) {
-                shareCount++;
-                const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-                window.open(whatsappLink, '_blank');
+    if (shareCount < 10) {
+        shareCount++;
+        const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+        window.open(whatsappLink, '_blank');
 
-                updateProgress();
-            }
+        // Update progress after each share
+        document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
+    }
 
-            if (shareCount === 10) {
-                message.innerHTML += "<br>You've shared enough! Redirecting...";
-                setTimeout(() => {
-                    window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update to your general page link
-                }, 2000);
-            }
-        };
+    if (shareCount === 10) {
+        // Message when enough shares have been made
+        document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
+        setTimeout(() => {
+            window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Redirect to your link
+        }, 2000);
+    }
+};
         </script>
         
     
