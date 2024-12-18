@@ -217,12 +217,15 @@ function submitQuiz() {
 
     // Format the message for WhatsApp
     const message = `Here are my quiz answers:\n${answers}`;
-    const encodedMessage = encodeURIComponent(message); // Ensure proper encoding
+    const encodedMessage = encodeURIComponent(message); // Properly encode the message
 
-    // Redirect to WhatsApp with the encoded message
+    // Create WhatsApp link with the encoded message
     const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
-    window.location.href = whatsappLink; // Use window.location.href for redirect
+
+    // Redirect to WhatsApp
+    window.location.href = whatsappLink;
 }
+
 
 
     </script>
