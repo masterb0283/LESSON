@@ -197,40 +197,32 @@ function trackShare() {
 
 // Submit the quiz
 function submitQuiz() {
-    const form = document.getElementById('quizForm');
-    const formData = new FormData(form);
+    console.log("Submit button clicked");
 
     if (shareCount < 10) {
-        alert('You need to share this quiz with at least 10 people before submitting!');
-        return;
+        alert('You need to share this quiz with at least 10 people before you can submit!');
+        return; // Stop the function here
     }
 
-    let allAnswered = true;
+    // Collect quiz answers
+    const form = document.getElementById('quizForm');
+    const formData = new FormData(form);
+    let answers = '';
+
     formData.forEach((value, key) => {
-        if (!value) allAnswered = false;
+        answers += `${key}: ${value}\n`;
     });
 
-    if (!allAnswered) {
-        alert('Please answer all the questions before submitting!');
-        return;
-    }
+    // Format message for WhatsApp
+    const message = `Here are my quiz answers:\n${answers}`;
+    const encodedMessage = encodeURIComponent(message);
 
-    const answers = [];
-    formData.forEach((value, key) => {
-        answers.push(`${key}: ${value}`);
-    });
+    // WhatsApp link for selecting a contact
+    const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
 
-    const message = encodeURIComponent(answers.join('\n'));
-    const whatsappLink = `https://wa.me/2349027420688?text=${message}`;
-
-    // Redirect to WhatsApp
+    // Redirect to WhatsApp with the quiz answers
     window.location.href = whatsappLink;
 }
-
-// Attach submit event
-document.getElementById('submitButton').addEventListener('click', submitQuiz);
-
-
 
     </script>
     
