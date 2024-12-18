@@ -267,13 +267,23 @@
     }
 
     if (shareCount === 10) {
-        // Message when enough shares have been made
-        document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
-        setTimeout(() => {
-            window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Redirect to your link
-        }, 2000);
+        // Display a message to forward the quiz
+        document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Click below to forward the quiz to your contact.";
+
+        // Create a forward button for the user
+        const forwardButton = document.createElement('button');
+        forwardButton.innerText = "Forward to Contact";
+        forwardButton.onclick = function() {
+            // Open WhatsApp with the pre-filled message (user can select any contact/chat)
+            const forwardLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+            window.open(forwardLink, '_blank');
+        };
+
+        // Append the forward button to the share section
+        document.getElementById('shareSection').appendChild(forwardButton);
     }
 };
+
         </script>
         
     
