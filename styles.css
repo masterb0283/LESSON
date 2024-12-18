@@ -232,3 +232,26 @@ button:hover {
     text-align: center;
     margin-top: 20px;
 }
+
+#submitButton {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: not-allowed;
+}
+
+#submitButton:enabled {
+    cursor: pointer;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+}
