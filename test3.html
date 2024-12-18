@@ -166,10 +166,10 @@
         
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
-            <a href="https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F" 
-               target="_blank" 
-               onclick="trackShare()">
-                <button type="button">Share Quiz</button>
+            <!-- <a href="https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F" 
+               target="_blank"  -->
+               <!-- onclick="trackShare()"> -->
+                <button type="button" id="share-btn">Share Quiz on whatsapp</button>
             </a>
             <p id="shareCount">Shared: 0/10</p>
         </div>
@@ -187,6 +187,7 @@
 
     <script>
         let shareCount = 0;
+        const shareButton = document.getElementById('share-btn');
         
         // Track share button clicks
         function trackShare() {
@@ -236,24 +237,41 @@
         // });
         
         // Share button logic
-        document.querySelector('a[onclick="trackShare()"]').addEventListener('click', function (event) {
-            // Prevent default action and trigger share tracking
-            event.preventDefault();
-            trackShare();
+        // document.querySelector('a[onclick="trackShare()"]').addEventListener('click', function (event) {
+        //     // Prevent default action and trigger share tracking
+        //     event.preventDefault();
+        //     trackShare();
         
-            if (shareCount <= 10) {
+        //     if (shareCount <= 10) {
+        //         const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+        //         window.open(whatsappLink, '_blank');
+        //     }
+        
+        //     // Redirect when 10 shares are reached
+        //     if (shareCount === 10) {
+        //         document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
+        //         setTimeout(() => {
+        //             window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update with your page link
+        //         }, 2000);
+        //     }
+        // });
+
+        shareButton.onclick = function() {
+            if (shareCount < 10) {
+                shareCount++;
                 const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
                 window.open(whatsappLink, '_blank');
+
+                updateProgress();
             }
-        
-            // Redirect when 10 shares are reached
+
             if (shareCount === 10) {
-                document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
+                message.innerHTML += "<br>You've shared enough! Redirecting...";
                 setTimeout(() => {
-                    window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update with your page link
+                    window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update to your general page link
                 }, 2000);
             }
-        });
+        };
         </script>
         
     
