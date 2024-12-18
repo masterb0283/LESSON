@@ -43,12 +43,6 @@ form {
     margin-bottom: 30px;
 }
 
-/* .question label {
-    display: block;
-    margin-bottom: 5px;
-    font-size: 16px;
-} */
-
 .question label {
     display: flex;
     align-items: center;
@@ -59,11 +53,10 @@ form {
 input[type="radio"] {
     width: 10px;
     height: 10px;
-    margin-right: 8px; /* Adjusts the space between the radio button and the text */
+    margin-right: 8px;
 }
 
-
-input{
+input {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -96,11 +89,32 @@ button:hover {
     border: 1px solid black;
     border-radius: 15px;
     margin-top: 20px;
+    padding: 10px 20px;
+    animation: moveUpDown 2s infinite ease-in-out;
 }
 
 .join a {
     color: white;
+    text-decoration: none;
+}
+
+.join2 {
+    display: flex;
+    flex-direction: column;
+    background-color: green;
+    font-weight: bold;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    color: white;
+    border: 1px solid black;
+    border-radius: 15px;
     padding: 10px 20px;
+    animation: moveUpDown 2s infinite ease-in-out;
+}
+
+.join2 a {
+    color: white;
     text-decoration: none;
 }
 
@@ -114,43 +128,6 @@ button:hover {
     100% {
         transform: translateY(0);
     }
-}
-
-.join {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: green;
-    color: white;
-    border: 1px solid black;
-    border-radius: 15px;
-    margin-top: 20px;
-    padding: 10px 20px;
-    animation: moveUpDown 2s infinite ease-in-out; /* Loop animation moving up and down */
-}
-
-.join a {
-    color: white;
-    text-decoration: none;
-}
-.join2 {
-    display: flex;
-    flex-direction: column;
-    background-color: green;
-    font-weight: bold;
-    position: fixed;
-    top: 20px;  /* Set position from the top */
-    left: 20px; /* Set position from the left */
-    color: white;
-    border: 1px solid black;
-    border-radius: 15px;
-    padding: 10px 20px;
-    animation: moveUpDown 2s infinite ease-in-out; /* Loop animation moving up and down */
-}
-
-.join2 a {
-    color: white;
-    text-decoration: none;
 }
 
 @media screen and (max-width: 600px) {
@@ -185,17 +162,6 @@ button:hover {
         font-size: 14px;
     }
 
-   .cancel-btn{
-    background-color: red;
-   }
-   .cancel-btn:hover{
-    background-color: white;
-    color: red;
-
-   }
-.start-btn:hover{
-    background-color: green;
-}
     .join {
         width: 90%;
         padding: 15px;
@@ -208,58 +174,44 @@ button:hover {
         width: 40%;
         padding: 6px 6px;
     }
-    .join2 a{
+
+    .join2 a {
         padding: 6px 4px;
     }
-}
-#shareSection button {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    background-color: #25D366; /* WhatsApp green */
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-}
 
-#shareSection button:hover {
-    background-color: #128C7E;
-}
-#shareSection {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-}
-
-#submitButton {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: not-allowed;
-}
-
-#submitButton:enabled {
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    .container {
-        padding: 10px;
+    #shareSection {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
     }
-
-    h1 {
-        font-size: 1.5rem;
-    }
-}
-@media screen and (max-width: 600px) {
-    #share-btn {
+    
+    #shareSection button {
         width: 100%;
-        font-size: 18px;
         padding: 10px;
-        margin: 20px 0;
+        font-size: 16px;
+        border: none;
+        background-color: #25D366; /* WhatsApp green */
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+        text-align: center;
+    }
+    
+    #shareSection button:hover {
+        background-color: #128C7E; /* WhatsApp darker green */
+    }
+    #submitButton {
+        display: block;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: not-allowed;
+        background-color: #ccc; /* Disabled state styling */
+    }
+
+    #submitButton:enabled {
+        cursor: pointer;
+        background-color: #0056b3;
     }
 }
