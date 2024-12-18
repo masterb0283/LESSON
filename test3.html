@@ -206,7 +206,7 @@ function copyLinkToClipboard() {
         // Redirect to WhatsApp after a short delay (2 seconds)
         setTimeout(function() {
             window.location.href = 'https://wa.me/?text=' + encodeURIComponent(message);
-        }, 2000);  // 2 seconds delay
+        }, 1000);  // 2 seconds delay
     }).catch(function(error) {
         alert("Failed to copy the link: " + error);
     });
