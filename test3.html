@@ -205,6 +205,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
 });
 
 // Submit the quiz
+// Submit the quiz
 function submitQuiz() {
     // Collect quiz answers
     const form = document.getElementById('quizForm');
@@ -215,12 +216,19 @@ function submitQuiz() {
         answers += `${key}: ${value}\n`;
     });
 
+    // Check if answers are correctly collected
+    console.log("Collected Answers: ", answers);
+
     // Format the message for WhatsApp
     const message = `Here are my quiz answers:\n${answers}`;
+    console.log("Message: ", message); // Debugging log
+
     const encodedMessage = encodeURIComponent(message); // Properly encode the message
+    console.log("Encoded Message: ", encodedMessage); // Debugging log
 
     // Create WhatsApp link with the encoded message
     const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
+    console.log("WhatsApp Link: ", whatsappLink); // Debugging log
 
     // Redirect to WhatsApp
     window.location.href = whatsappLink;
