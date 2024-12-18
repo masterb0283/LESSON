@@ -188,103 +188,49 @@
     <script>
         let shareCount = 0;
         const shareButton = document.getElementById('share-btn');
-        
+        const shareCountDisplay = document.getElementById('shareCount');
+        const shareSection = document.getElementById('shareSection');
+        const submitButton = document.getElementById('submitButton');
+    
         // Track share button clicks
-        function trackShare() {
-            shareCount++;
-            document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
-        
-            // Enable submit button when 10 shares are reached
-            if (shareCount >= 10) {
-                const submitButton = document.getElementById('submitButton');
-                submitButton.disabled = false;
-                submitButton.style.backgroundColor = "green";
+        shareButton.onclick = function () {
+            if (shareCount < 10) {
+                shareCount++;
+                const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+                window.open(whatsappLink, '_blank');
+    
+                // Update progress after each share
+                shareCountDisplay.innerText = `Shared: ${shareCount}/10`;
             }
-        }
-        
-        // Collect and submit the quiz
-        // function submitQuiz() {
-        //     // Collect quiz answers
-        //     const form = document.getElementById('quizForm');
-        //     const formData = new FormData(form);
-        //     let answers = '';
-        
-        //     formData.forEach((value, key) => {
-        //         answers += `${key}: ${value}\n`;
-        //     });
-        
-        //     // Check if answers are correctly collected
-        //     console.log("Collected Answers: ", answers);
-        
-        //     // Format the message for WhatsApp
-        //     const message = `Here are my quiz answers:\n${answers}`;
-        //     console.log("Message: ", message); // Debugging log
-        
-        //     const encodedMessage = encodeURIComponent(message); // Properly encode the message
-        //     console.log("Encoded Message: ", encodedMessage); // Debugging log
-        
-        //     // Create WhatsApp link with the encoded message
-        //     const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
-        //     console.log("WhatsApp Link: ", whatsappLink); // Debugging log
-        
-        //     // Redirect to WhatsApp
-        //     window.location.href = whatsappLink;
-        // }
-        
-        // // Attach the submitQuiz function to the submit button
-        // document.getElementById('submitButton').addEventListener('click', function () {
-        //     submitQuiz();
-        // });
-        
-        // Share button logic
-        // document.querySelector('a[onclick="trackShare()"]').addEventListener('click', function (event) {
-        //     // Prevent default action and trigger share tracking
-        //     event.preventDefault();
-        //     trackShare();
-        
-        //     if (shareCount <= 10) {
-        //         const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-        //         window.open(whatsappLink, '_blank');
-        //     }
-        
-        //     // Redirect when 10 shares are reached
-        //     if (shareCount === 10) {
-        //         document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Redirecting...";
-        //         setTimeout(() => {
-        //             window.location.href = 'https://wa.me/message/4YLTUR33HC3LA1'; // Update with your page link
-        //         }, 2000);
-        //     }
-        // });
-
-        shareButton.onclick = function() {
-    if (shareCount < 10) {
-        shareCount++;
-        const whatsappLink = `https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-        window.open(whatsappLink, '_blank');
-
-        // Update progress after each share
-        document.getElementById('shareCount').innerText = `Shared: ${shareCount}/10`;
-    }
-
-    if (shareCount === 10) {
-        // Display a message to forward the quiz
-        document.getElementById('shareSection').innerHTML += "<br>You've shared enough! Click below to forward the quiz to your contact.";
-
-        // Create a forward button for the user
-        const forwardButton = document.createElement('button');
-        forwardButton.innerText = "Forward to Contact";
-        forwardButton.onclick = function() {
-            // Open WhatsApp with the pre-filled message (user can select any contact/chat)
-            const forwardLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20are%20my%20results.%20Test%20your%20Knowledge%20with%20this%20English%20Quiz%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
-            window.open(forwardLink, '_blank');
+    
+            if (shareCount === 10) {
+                // Display a message to forward the quiz
+                if (!document.getElementById('forwardButton')) {
+                    shareSection.innerHTML += `<br>You've shared enough! Click below to forward the quiz to your contact.`;
+    
+                    // Create a forward button for the user
+                    const forwardButton = document.createElement('button');
+                    forwardButton.id = 'forwardButton';
+                    forwardButton.innerText = "Forward to Contact";
+                    forwardButton.style.backgroundColor = 'blue';
+                    forwardButton.style.color = 'white';
+                    forwardButton.onclick = function () {
+                        const forwardLink = `https://wa.me/?text=I've%20completed%20the%20quiz.%20Here%20is%20the%20link%20to%20try%20it%20yourself%3A%20https%3A%2F%2Fcbtlesson.vercel.app%2F`;
+                        window.open(forwardLink, '_blank');
+                    };
+    
+                    shareSection.appendChild(forwardButton);
+                }
+            }
+    
+            // Enable the submit button when forward completes
+            if (shareCount === 10) {
+                submitButton.disabled = false;
+                submitButton.style.backgroundColor = 'green';
+            }
         };
-
-        // Append the forward button to the share section
-        document.getElementById('shareSection').appendChild(forwardButton);
-    }
-};
-
-        </script>
+    </script>
+    
         
     
     
