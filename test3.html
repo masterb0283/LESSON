@@ -158,10 +158,12 @@
             <!-- Add more questions here -->
             
             <button type="button" id="submitButton" disabled style="background-color: red; color: white;">Submit</button>
-
-
         </form>
 
+
+        <!-- </form> -->
+
+        
         <div id="shareSection">
             <h3>Share this Quiz with 10 People before you can Submit</h3>
             <a href="https://wa.me/?text=Test%20your%20Knowledge%20with%20this%20English%20Quiz:%20https://cbtlesson.vercel.app/" 
@@ -190,20 +192,19 @@ function trackShare() {
 
     // Enable submit button when 10 shares are reached
     if (shareCount >= 10) {
-        document.getElementById('submitButton').disabled = false;
-        document.getElementById('submitButton').style.backgroundColor = "green";
+        const submitButton = document.getElementById('submitButton');
+        submitButton.disabled = false;
+        submitButton.style.backgroundColor = "green";
     }
 }
 
+// Attach the submitQuiz function to the submit button
+document.getElementById('submitButton').addEventListener('click', function () {
+    submitQuiz();
+});
+
 // Submit the quiz
 function submitQuiz() {
-    console.log("Submit button clicked");
-
-    if (shareCount < 10) {
-        alert('You need to share this quiz with at least 10 people before you can submit!');
-        return; // Stop the function here
-    }
-
     // Collect quiz answers
     const form = document.getElementById('quizForm');
     const formData = new FormData(form);
@@ -213,16 +214,15 @@ function submitQuiz() {
         answers += `${key}: ${value}\n`;
     });
 
-    // Format message for WhatsApp
+    // Format the message for WhatsApp
     const message = `Here are my quiz answers:\n${answers}`;
     const encodedMessage = encodeURIComponent(message);
 
-    // WhatsApp link for selecting a contact
+    // Redirect to WhatsApp
     const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
-
-    // Redirect to WhatsApp with the quiz answers
     window.location.href = whatsappLink;
 }
+
 
     </script>
     
